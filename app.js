@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const qualityValText = document.getElementById('qualityValText');
     const cropFitMode = document.getElementById('cropFitMode');
     const exportCropBtn = document.getElementById('exportCropBtn');
+    const exportShareBtn = document.getElementById('exportShareBtn');
+    const exportShareNote = document.getElementById('exportShareNote');
     const hiddenExportCanvas = document.getElementById('hiddenExportCanvas');
 
     // Copy Buttons & Toast
@@ -411,42 +413,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Image & Video Crop/Screenshot Export Engine ---
-    exportCropBtn.addEventListener('click', () => {
+
+    // Web Share Level 2 lets the OS share sheet save straight into the photo library,
+    // which a plain download can never do. Only offer it when files are actually shareable.
+    function canShareFiles() {
+        if (typeof navigator.share !== 'function' || typeof navigator.canShare !== 'function') return false;
+        try {
+            const probe = new File([new Blob(['x'], { type: 'image/jpeg' })], 'probe.jpg', { type: 'image/jpeg' });
+            return navigator.canShare({ files: [probe] });
+        } catch (e) {
+            return false;
+        }
+    }
+
+    const shareSupported = canShareFiles();
+    if (shareSupported) {
+        exportShareBtn.classList.remove('hidden');
+        exportShareNote.classList.remove('hidden');
+        exportCropBtn.classList.remove('primary');
+        exportCropBtn.classList.add('secondary');
+    }
+
+    exportShareBtn.addEventListener('click', () => runExport('share'));
+    exportCropBtn.addEventListener('click', () => runExport('download'));
+
+    function runExport(mode) {
         if (loadedImageObj) {
             // Process Uploaded Image
-            cropAndExportMedia(loadedImageObj, 'image');
+            cropAndExportMedia(loadedImageObj, 'image', mode);
         } else if (loadedVideoObj) {
             // Capture Current Frame of Video
-            cropAndExportMedia(loadedVideoObj, 'video');
+            cropAndExportMedia(loadedVideoObj, 'video', mode);
         } else {
             // Generate Demo Color Card
-            cropPlaceholderImage();
+            cropPlaceholderImage(mode);
         }
-    });
+    }
 
-    function cropPlaceholderImage() {
+    function cropPlaceholderImage(mode) {
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = state.width;
         tempCanvas.height = state.height;
         const ctx = tempCanvas.getContext('2d');
-        
+
         const grad = ctx.createLinearGradient(0, 0, state.width, state.height);
         grad.addColorStop(0, '#6366F1');
         grad.addColorStop(1, '#06B6D4');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, state.width, state.height);
-        
+
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 42px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(`AspectRatioPro ${state.simpleW}:${state.simpleH}`, state.width / 2, state.height / 2);
 
-        const demoImg = new Image();
-        demoImg.onload = () => cropAndExportMedia(demoImg, 'demo');
-        demoImg.src = tempCanvas.toDataURL();
+        // Pass the canvas straight to drawImage — routing through an Image would make this
+        // async and Safari would drop the user gesture that navigator.share() requires.
+        cropAndExportMedia(tempCanvas, 'demo', mode);
     }
 
-    function cropAndExportMedia(mediaSource, type) {
+    function cropAndExportMedia(mediaSource, type, mode) {
         const targetRatio = state.aspectRatioVal; // W / H
         const fitMode = cropFitMode.value;
 
@@ -512,24 +538,68 @@ document.addEventListener('DOMContentLoaded', () => {
         const quality = parseFloat(exportQuality.value) / 100;
         const ext = mimeType === 'image/jpeg' ? 'jpg' : (mimeType === 'image/png' ? 'png' : 'webp');
 
+        // toDataURL is synchronous; toBlob is not. Staying synchronous keeps the click's
+        // transient activation alive so Safari accepts the navigator.share() call below.
         const dataUrl = hiddenExportCanvas.toDataURL(mimeType, quality);
+        const blob = dataUrlToBlob(dataUrl);
 
-        // Download Trigger
         const prefix = type === 'video' ? 'video_screenshot' : (type === 'demo' ? 'demo_card' : 'cropped');
+        const fileName = `${prefix}_${outW}x${outH}_${state.simpleW}x${state.simpleH}.${ext}`;
+        const sizeText = `${outW} × ${outH} px`;
+
+        if (mode === 'share' && shareSupported) {
+            shareImageFile(blob, fileName, mimeType, sizeText);
+        } else {
+            downloadBlob(blob, fileName);
+            showToast(`已開始下載 ${sizeText}，檔案存於瀏覽器的下載位置`);
+        }
+    }
+
+    function dataUrlToBlob(dataUrl) {
+        const commaIdx = dataUrl.indexOf(',');
+        const header = dataUrl.slice(0, commaIdx);
+        const mime = header.slice(header.indexOf(':') + 1, header.indexOf(';'));
+        const binary = atob(dataUrl.slice(commaIdx + 1));
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+        }
+        return new Blob([bytes], { type: mime });
+    }
+
+    function downloadBlob(blob, fileName) {
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = `${prefix}_${outW}x${outH}_${state.simpleW}x${state.simpleH}.${ext}`;
+        a.href = url;
+        a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        // Give the browser a moment to start the transfer before releasing the object URL.
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+    }
 
-        if (type === 'video') {
-            showToast(`已成功截取影片當前畫面並裁切下載 (${outW} × ${outH} px)`);
-        } else if (type === 'image') {
-            showToast(`已成功裁切圖片並下載 (${outW} × ${outH} px)`);
-        } else {
-            showToast(`已下載比例示範圖卡 (${outW} × ${outH} px)`);
+    function shareImageFile(blob, fileName, mimeType, sizeText) {
+        const file = new File([blob], fileName, { type: mimeType });
+
+        if (!navigator.canShare({ files: [file] })) {
+            downloadBlob(blob, fileName);
+            showToast(`此格式無法分享，已改為下載 (${sizeText})`);
+            return;
         }
+
+        navigator.share({ files: [file] })
+            .then(() => {
+                showToast(`已送出 ${sizeText}，請在系統選單選「儲存影像」存入相簿`);
+            })
+            .catch((err) => {
+                if (err && err.name === 'AbortError') {
+                    showToast('已取消，圖片未儲存');
+                    return;
+                }
+                downloadBlob(blob, fileName);
+                showToast(`分享失敗，已改為下載 (${sizeText})`);
+            });
     }
 
     // --- Scaler Calculator ---

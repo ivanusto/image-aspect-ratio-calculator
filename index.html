@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>圖片與影片比例智慧計算與裁切器 | Aspect Ratio & Crop Pro</title>
     <meta name="description" content="免費且注重隱私的線上圖片與影片比例計算及即時裁切工具，支援拖曳貼圖、自動算比例、等比例縮放與一鍵匯出裁切圖片。">
     <!-- Google Fonts -->
@@ -28,7 +28,7 @@
                     <i class="fa-solid fa-crop-simple"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>圖片與影片比例智慧計算與裁切器</h1>
+                    <h1>圖片影片比例計算與裁切</h1>
                     <p>隱私優先・純前端本地運算・一鍵比例裁切與縮放</p>
                 </div>
             </div>
@@ -64,8 +64,14 @@
                 <!-- Dropzone / Image & Video Paste Drop -->
                 <div class="drop-zone" id="dropZone">
                     <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
-                    <p class="drop-title">拖曳圖片/影片檔案到此處，或點擊選擇檔案</p>
-                    <p class="drop-hint">支援 JPG, PNG, WEBP, GIF, MP4, WEBM (直接 Ctrl+V 貼圖也可)</p>
+                    <p class="drop-title">
+                        <span class="hide-on-mobile">拖曳圖片/影片檔案到此處，或點擊選擇檔案</span>
+                        <span class="show-on-mobile">點擊選擇照片或影片</span>
+                    </p>
+                    <p class="drop-hint">
+                        <span class="hide-on-mobile">支援 JPG, PNG, WEBP, GIF, MP4, WEBM (直接 Ctrl+V 貼圖也可)</span>
+                        <span class="show-on-mobile">支援 JPG、PNG、WEBP、GIF、MP4、WEBM</span>
+                    </p>
                     <input type="file" id="fileInput" accept="image/*,video/*" class="file-input-hidden">
                 </div>
 
@@ -194,9 +200,9 @@
                         <div class="crop-group">
                             <label for="exportFormat">輸出格式</label>
                             <select id="exportFormat" class="select-input">
-                                <option value="image/jpeg">JPG / JPEG (檔案小)</option>
+                                <option value="image/jpeg" selected>JPG / JPEG (相容性最佳)</option>
                                 <option value="image/png">PNG (無損高品質)</option>
-                                <option value="image/webp" selected>WEBP (新一代高效格式)</option>
+                                <option value="image/webp">WEBP (檔案小，相簿可能不支援)</option>
                             </select>
                         </div>
                         <div class="crop-group">
@@ -212,9 +218,18 @@
                         </div>
                     </div>
 
-                    <button class="btn-action primary export-btn" id="exportCropBtn">
-                        <i class="fa-solid fa-download"></i> 依當前比例裁切並下載圖片
-                    </button>
+                    <div class="export-actions">
+                        <button class="btn-action primary share-btn hidden" id="exportShareBtn">
+                            <i class="fa-solid fa-share-from-square"></i> 裁切並存到相簿 / 分享
+                        </button>
+                        <button class="btn-action primary export-btn" id="exportCropBtn">
+                            <i class="fa-solid fa-download"></i> 裁切並下載檔案
+                        </button>
+                    </div>
+                    <p class="export-note hidden" id="exportShareNote">
+                        <i class="fa-solid fa-circle-info"></i>
+                        手機請用上方「存到相簿」，在系統選單中選擇「儲存影像」。瀏覽器的下載只會存進檔案資料夾，不會進相簿。
+                    </p>
                 </div>
 
                 <!-- Aspect Ratio Scale / Resizer Calculator -->

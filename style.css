@@ -835,13 +835,44 @@ body {
     margin-top: 6px;
 }
 
-.export-btn {
-    background: linear-gradient(135deg, var(--accent-emerald), #059669) !important;
+/* Export / Share Actions */
+.export-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-top: 4px;
 }
 
-.export-btn:hover {
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+/* Emerald marks whichever button is the primary path — share when the OS share
+   sheet is available (it can reach the photo library), download otherwise. */
+.export-btn.primary,
+.share-btn.primary {
+    background: linear-gradient(135deg, var(--accent-emerald), #059669);
+}
+
+.export-btn.primary:hover,
+.share-btn.primary:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.export-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: var(--radius-md);
+}
+
+.export-note i {
+    color: var(--accent-cyan);
+    margin-top: 3px;
+    flex-shrink: 0;
 }
 
 /* Resizer Calculator */
@@ -1020,4 +1051,350 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+/* Keep the toast's fade — the generic .hidden above would otherwise kill it outright.
+   Higher specificity wins over .hidden regardless of source order. */
+.toast.hidden {
+    display: flex !important;
+}
+
+/* Responsive helpers */
+.show-on-mobile {
+    display: none;
+}
+
+/* ==========================================================================
+   Mobile Layout (<= 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+
+    /* --- Page frame & notch safe areas --- */
+    body {
+        padding-top: 12px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+        padding-left: calc(12px + env(safe-area-inset-left));
+        padding-right: calc(12px + env(safe-area-inset-right));
+    }
+
+    .container {
+        gap: 16px;
+    }
+
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .show-on-mobile {
+        display: inline;
+    }
+
+    /* --- Header: stack it. The desktop row squeezed the h1 to one glyph per line. --- */
+    .app-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 16px;
+        border-radius: var(--radius-lg);
+    }
+
+    .logo {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .logo-icon {
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        font-size: 19px;
+    }
+
+    /* min-width:0 lets the text block shrink and wrap normally inside the flex row */
+    .logo-text {
+        min-width: 0;
+    }
+
+    .logo-text h1 {
+        font-size: 17px;
+        line-height: 1.4;
+        letter-spacing: 0;
+    }
+
+    .logo-text p {
+        font-size: 12px;
+        line-height: 1.55;
+        margin-top: 4px;
+    }
+
+    .header-badges {
+        gap: 8px;
+    }
+
+    .badge {
+        flex: 1 1 0;
+        justify-content: center;
+        min-height: 42px;
+        padding: 6px 10px;
+    }
+
+    /* --- Panels --- */
+    .panel {
+        padding: 18px 16px;
+        gap: 18px;
+        border-radius: var(--radius-lg);
+    }
+
+    .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .panel-header h2 {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .panel-header .sub-text {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .header-controls {
+        width: 100%;
+    }
+
+    .panel-sub-card {
+        padding: 16px 14px;
+    }
+
+    /* --- Mobile-first ordering: the file picker is the entry point here, not the
+           clipboard bar (nobody copies "1024 x 1280" on a phone). --- */
+    .input-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-section .panel-header      { order: 0; }
+    .input-section .drop-zone         { order: 1; }
+    .input-section .dimension-inputs-grid { order: 2; }
+    .input-section .presets-wrapper   { order: 3; }
+    .input-section .smart-input-container { order: 4; }
+    .input-section .results-dashboard { order: 5; }
+
+    .drop-zone {
+        padding: 26px 16px;
+    }
+
+    .drop-title {
+        font-size: 15px;
+    }
+
+    /* --- 16px minimum on every field: anything smaller makes iOS Safari
+           zoom the whole page on focus. --- */
+    #smartInput,
+    .number-input-wrap input,
+    .select-input,
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 16px;
+    }
+
+    .number-input-wrap input {
+        padding: 13px 40px 13px 14px;
+    }
+
+    .select-input {
+        padding: 12px 12px;
+        min-height: 46px;
+    }
+
+    /* --- Presets become a swipeable rail instead of a tall wrapped block --- */
+    .preset-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin: 0 -16px;
+        padding: 2px 16px 8px;
+    }
+
+    .preset-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chip {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 15px;
+        font-size: 13px;
+    }
+
+    /* --- Touch targets: 44px minimum --- */
+    .btn-action {
+        min-height: 50px;
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    .btn-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 16px;
+        font-size: 13px;
+    }
+
+    .btn-toggle {
+        min-height: 40px;
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .btn-icon,
+    .btn-swap {
+        min-width: 46px;
+        min-height: 46px;
+    }
+
+    .btn-mini-copy {
+        top: 2px;
+        right: 2px;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+    }
+
+    /* Keep the label clear of the copy button's enlarged hit area */
+    .stat-box:has(.btn-mini-copy) {
+        padding-right: 48px;
+    }
+
+    .ref-item {
+        padding: 12px 8px;
+        min-height: 92px;
+        justify-content: center;
+    }
+
+    /* --- Swap button sits between two stacked fields, so rotate the arrow --- */
+    .dimension-inputs-grid,
+    .scaler-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .btn-swap {
+        justify-self: center;
+    }
+
+    .scale-link-icon {
+        display: none;
+    }
+
+    /* --- Preview viewport: taller, so 9:16 sources are actually readable --- */
+    .visual-viewport {
+        height: 58vh;
+        min-height: 280px;
+        max-height: 440px;
+        padding: 14px;
+    }
+
+    .export-actions {
+        gap: 12px;
+    }
+
+    .toast {
+        bottom: calc(18px + env(safe-area-inset-bottom));
+        left: 12px;
+        right: 12px;
+        transform: none;
+        justify-content: center;
+        text-align: left;
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 12px 18px;
+        border-radius: var(--radius-md);
+    }
+
+    .toast.hidden {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   Touch devices: neutralise sticky :hover states left behind after a tap
+   ========================================================================== */
+@media (hover: none) {
+    .drop-zone:hover:not(.drag-over) {
+        border-color: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.02);
+        transform: none;
+    }
+
+    .chip:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
+        color: var(--text-secondary);
+    }
+
+    .btn-toggle:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--border-color);
+        color: var(--text-secondary);
+    }
+
+    .btn-pill:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.08);
+        color: var(--text-secondary);
+    }
+
+    .btn-icon:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text-primary);
+    }
+
+    .btn-swap:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--border-color);
+        transform: none;
+    }
+
+    .ref-item:hover {
+        border-color: var(--border-color);
+        background: rgba(10, 14, 26, 0.4);
+        transform: none;
+    }
+
+    .btn-action.primary:hover,
+    .export-btn.primary:hover,
+    .share-btn.primary:hover {
+        transform: none;
+        box-shadow: var(--shadow-glow);
+    }
+
+    .btn-action.secondary:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: var(--border-color);
+    }
+
+    /* Kill the blue flash and the 300ms tap delay */
+    button,
+    .chip,
+    .ref-item,
+    .drop-zone,
+    .badge {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
 }
