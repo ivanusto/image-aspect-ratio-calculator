@@ -1,6 +1,6 @@
 # 圖片與影片比例智慧計算與裁切器 (Aspect Ratio & Crop Pro)
 
-[English Version README](README.md)
+🌐 **Languages / 多語言**: [English](README.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md)
 
 > 一款現代化、注重隱私、100% 瀏覽器端運算的圖片與影片比例計算及即時裁切 Web 應用程式。
 

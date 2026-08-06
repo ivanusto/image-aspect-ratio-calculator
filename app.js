@@ -91,10 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'toast.copied_css': (css) => `Copied CSS snippet: ${css}`,
             'toast.copied_stat': (val) => `Copied: ${val}`,
             'toast.copy_failed': 'Failed to copy',
-            'toast.invalid_dim': 'Please enter valid dimensions',
-
-            // Lang switch button label
-            'lang_toggle_btn': '繁體中文'
+            'toast.invalid_dim': 'Please enter valid dimensions'
         },
         'zh-TW': {
             'meta.title': '圖片與影片比例智慧計算與裁切器 | Aspect Ratio & Crop Pro',
@@ -182,27 +179,113 @@ document.addEventListener('DOMContentLoaded', () => {
             'toast.copied_css': (css) => `已複製 CSS 代碼：${css}`,
             'toast.copied_stat': (val) => `已複製：${val}`,
             'toast.copy_failed': '複製失敗',
-            'toast.invalid_dim': '請輸入有效尺寸',
+            'toast.invalid_dim': '請輸入有效尺寸'
+        },
+        'ja': {
+            'meta.title': 'アスペクト比計算＆リアルタイム切り抜き | Aspect Ratio & Crop Pro',
+            'meta.description': '完全無料＆プライバシー重視の画像・動画アスペクト比計算・切り抜きツール。自動アスペクト比計算、リサイズ、高画質エクスポートに対応。',
+            'header.title': 'アスペクト比計算＆切り抜き',
+            'header.subtitle': 'プライバシー重視・完全ローカル処理・一括トリミング＆リサイズ',
+            'header.github': 'GitHub リポジトリ',
+            'input.section_title': 'サイズ入力・ファイル読み込み',
+            'input.section_subtitle': 'テキスト「1024 x 1280」貼り付けまたはファイルドラッグ',
+            'input.smart_label': 'クイック貼り付け / テキスト自動解析',
+            'input.smart_placeholder': '入力例：1024 x 1280、1024*1280、1024, 1280...',
+            'input.paste_btn_title': 'クリップボードから貼り付け',
+            'drop.desktop_title': 'ここに画像・動画ファイルをドラッグ＆ドロップ、またはクリックして選択',
+            'drop.mobile_title': 'タップして写真や動画を選択',
+            'drop.desktop_hint': '対応フォーマット: JPG, PNG, WEBP, GIF, MP4, WEBM (Ctrl+Vでの貼り付けも可能)',
+            'drop.mobile_hint': '対応フォーマット: JPG、PNG、WEBP、GIF、MP4、WEBM',
+            'input.width_label': '幅 (Width)',
+            'input.width_placeholder': '幅 px',
+            'input.swap_title': '縦横入れ替え',
+            'input.height_label': '高さ (Height)',
+            'input.height_placeholder': '高さ px',
+            'presets.title': 'プリセットサイズ＆アスペクト比',
+            'results.simplified_ratio': '最簡整数比',
+            'results.closest_match': '最も近い標準比率',
+            'results.norm_w': '正規化比率 (幅=1)',
+            'results.norm_h': '正規化比率 (高さ=1)',
+            'results.total_px': '総画素数と画質',
+            'results.copy_css': 'CSSコピー (aspect-ratio)',
+            'preview.title': 'リアルタイムプレビュー＆切り抜き表示',
+            'preview.grid_btn': 'グリッド',
+            'preview.grid_title': '三分割法グリッド表示切り替え',
+            'crop.title': '画像アスペクト比切り抜き＆高画質保存',
+            'crop.desc': 'ファイルを読み込みました。目標のアスペクト比で中央切り抜きして保存できます：',
+            'crop.format_label': '出力フォーマット',
+            'crop.format_jpg': 'JPG / JPEG (互換性優先)',
+            'crop.format_png': 'PNG (無駄のない高画質)',
+            'crop.format_webp': 'WEBP (軽量・高圧縮)',
+            'crop.quality_label': '画質品質',
+            'crop.fit_label': '切り抜きフィットモード',
+            'crop.fit_cover': 'Cover (中央寄せトリミング)',
+            'crop.fit_contain': 'Contain (全体表示・余白あり)',
+            'crop.share_btn': '切り抜いて写真アプリへ保存 / 共有',
+            'crop.share_note': 'スマホの場合は上の「写真アプリへ保存」をタップし、共有メニューで「画像を保存」を選択してください。',
+            'scaler.title': '比率固定のリサイズ・寸法計算',
+            'scaler.width_label': '目標の幅 (Target W)',
+            'scaler.width_placeholder': '新しい幅を入力',
+            'scaler.height_label': '目標の高さ (Target H)',
+            'scaler.height_placeholder': '自動計算された高さ',
+            'scaler.quick_scale': 'クイック倍率：',
+            'ref.title': '標準アスペクト比一覧 (クリックで適用)',
+            'ref.1_1': 'スクエア (1080×1080)',
+            'ref.4_5': 'SNS投稿 (1024×1280)',
+            'ref.16_9': '横型動画 (1920×1080)',
+            'ref.9_16': 'ストーリーズ / Reels / Shorts',
+            'ref.4_3': 'クラシック / iPad画面',
+            'ref.3_2': '一眼レフ写真 (35mm)',
+            'ref.21_9': 'ウルトラワイド / シネマ',
+            'ref.2_3': '縦型ポートレート写真',
+            'footer.text': 'アスペクト比計算＆切り抜き &copy; 2026 | 開発者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | ウェブサイト <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a>',
 
-            // Lang switch button label
-            'lang_toggle_btn': 'English'
+            // Dynamic Function Returns
+            'tag.square': '<span class="tag-badge square"><i class="fa-solid fa-square"></i> 正方形 (Square)</span>',
+            'tag.landscape': '<span class="tag-badge landscape"><i class="fa-solid fa-desktop"></i> 横型 (Landscape)</span>',
+            'tag.portrait': '<span class="tag-badge portrait"><i class="fa-solid fa-mobile-screen"></i> 縦型 (Portrait)</span>',
+            'accuracy_text': (acc, desc) => `一致率 ${acc}% (${desc})`,
+            'megapixels_text': (mp) => `約 ${mp} MP (メガピクセル)`,
+            'recommendation_prefix': '推奨用途：',
+            'copy_ratio_btn': (ratio) => `比率をコピー (${ratio})`,
+            'btn_crop_image': '<i class="fa-solid fa-scissors"></i> この比率で画像を切り抜いてダウンロード',
+            'btn_crop_video': '<i class="fa-solid fa-camera"></i> 動画の現在フレームを切り抜いて保存 (キャプチャ)',
+            'btn_crop_demo': '<i class="fa-solid fa-layer-group"></i> サンプルカード画像を生成して保存',
+            'scaler_desc': (ratio) => `現在の比率 (${ratio}) を固定中。新しい幅または高さを入力：`,
+
+            // Toast Messages
+            'toast.pasted': '貼り付けたテキストからサイズを解析しました！',
+            'toast.clipboard_permission': 'クリップボードの読み取りアクセスを許可してください',
+            'toast.loaded_image': (w, h) => `画像を読み込みました: ${w} × ${h} px`,
+            'toast.loaded_video': (w, h) => `動画を読み込みました: ${w} × ${h} px`,
+            'toast.downloading': (sizeText) => `${sizeText} のダウンロードを開始しました。`,
+            'toast.shared': (sizeText) => `${sizeText} を送信しました。「画像を保存」を選択してください。`,
+            'toast.share_fallback': (sizeText) => `このフォーマットは共有できないため、ダウンロードします (${sizeText})`,
+            'toast.share_error': (sizeText) => `共有に失敗したため、ダウンロードを開始します (${sizeText})`,
+            'toast.share_canceled': 'キャンセルされました。画像は保存されていません。',
+            'toast.copied_ratio': (ratio) => `比率をコピーしました：${ratio}`,
+            'toast.copied_css': (css) => `CSSコードをコピーしました：${css}`,
+            'toast.copied_stat': (val) => `コピーしました：${val}`,
+            'toast.copy_failed': 'コピーに失敗しました',
+            'toast.invalid_dim': '有効なサイズを入力してください'
         }
     };
 
     function getInitialLanguage() {
         const saved = localStorage.getItem('app_lang');
-        if (saved && (saved === 'zh-TW' || saved === 'en')) {
+        if (saved && (saved === 'zh-TW' || saved === 'en' || saved === 'ja')) {
             return saved;
         }
 
-        // Detect browser languages
         const userLangs = navigator.languages || [navigator.language || navigator.userLanguage || ''];
-        const isTraditionalChinese = userLangs.some(lang => {
-            if (!lang) return false;
-            return lang.toLowerCase().startsWith('zh');
-        });
+        for (let lang of userLangs) {
+            if (!lang) continue;
+            const l = lang.toLowerCase();
+            if (l.startsWith('ja')) return 'ja';
+            if (l.startsWith('zh')) return 'zh-TW';
+        }
 
-        return isTraditionalChinese ? 'zh-TW' : 'en';
+        return 'en';
     }
 
     let currentLang = getInitialLanguage();
@@ -220,6 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLang = lang;
         localStorage.setItem('app_lang', lang);
         document.documentElement.lang = lang;
+
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect && langSelect.value !== lang) {
+            langSelect.value = lang;
+        }
 
         // Apply textContent to [data-i18n]
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -260,12 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
             footerText.innerHTML = getI18nStr('footer.text');
         }
 
-        // Update Language Switcher Button Text
-        const langBtnText = document.getElementById('langBtnText');
-        if (langBtnText) {
-            langBtnText.textContent = getI18nStr('lang_toggle_btn');
-        }
-
         // Re-run calculations to update dynamic labels
         if (typeof updateCalculations === 'function') {
             updateCalculations();
@@ -273,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // DOM Elements
-    const langToggleBtn = document.getElementById('langToggleBtn');
+    const langSelect = document.getElementById('langSelect');
     const smartInput = document.getElementById('smartInput');
     const pasteBtn = document.getElementById('pasteBtn');
     const widthInput = document.getElementById('widthInput');
@@ -328,16 +410,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Preset standard ratios definition
     const STANDARD_RATIOS = [
-        { w: 1, h: 1, name: "1:1", desc_zh: "正方形貼文 / 頭像", desc_en: "Square post / Avatar" },
-        { w: 4, h: 5, name: "4:5", desc_zh: "Instagram 垂直貼文", desc_en: "Instagram vertical post" },
-        { w: 3, h: 4, name: "3:4", desc_zh: "電商商品圖 / 平板照", desc_en: "E-commerce / Tablet photo" },
-        { w: 2, h: 3, name: "2:3", desc_zh: "單眼直向照 / 海報", desc_en: "DSLR portrait / Poster" },
-        { w: 9, h: 16, name: "9:16", desc_zh: "Reels / TikTok / 限時動態", desc_en: "Reels / TikTok / Story" },
-        { w: 4, h: 3, name: "4:3", desc_zh: "傳統相機 / iPad 螢幕", desc_en: "Classic camera / iPad screen" },
-        { w: 3, h: 2, name: "3:2", desc_zh: "35mm 標準相片", desc_en: "35mm standard photo" },
-        { w: 16, h: 9, name: "16:9", desc_zh: "YouTube / 簡報 / 電視", desc_en: "YouTube / Presentation / TV" },
-        { w: 1.91, h: 1, name: "1.91:1", desc_zh: "FB / Twitter 橫向連結圖", desc_en: "FB / Twitter landscape card" },
-        { w: 21, h: 9, name: "21:9", desc_zh: "超寬螢幕 / 電影比例", desc_en: "Ultrawide / Cinema format" }
+        { w: 1, h: 1, name: "1:1", desc_zh: "正方形貼文 / 頭像", desc_en: "Square post / Avatar", desc_ja: "スクエア投稿 / アイコン" },
+        { w: 4, h: 5, name: "4:5", desc_zh: "Instagram 垂直貼文", desc_en: "Instagram vertical post", desc_ja: "Instagram 縦型投稿" },
+        { w: 3, h: 4, name: "3:4", desc_zh: "電商商品圖 / 平板照", desc_en: "E-commerce / Tablet photo", desc_ja: "EC商品画像 / タブレット写真" },
+        { w: 2, h: 3, name: "2:3", desc_zh: "單眼直向照 / 海報", desc_en: "DSLR portrait / Poster", desc_ja: "一眼レフ縦構図 / ポスター" },
+        { w: 9, h: 16, name: "9:16", desc_zh: "Reels / TikTok / 限時動態", desc_en: "Reels / TikTok / Story", desc_ja: "リール / TikTok / ストーリーズ" },
+        { w: 4, h: 3, name: "4:3", desc_zh: "傳統相機 / iPad 螢幕", desc_en: "Classic camera / iPad screen", desc_ja: "クラシックカメラ / iPad画面" },
+        { w: 3, h: 2, name: "3:2", desc_zh: "35mm 標準相片", desc_en: "35mm standard photo", desc_ja: "35mm 標準写真" },
+        { w: 16, h: 9, name: "16:9", desc_zh: "YouTube / 簡報 / 電視", desc_en: "YouTube / Presentation / TV", desc_ja: "YouTube / プレゼン / テレビ" },
+        { w: 1.91, h: 1, name: "1.91:1", desc_zh: "FB / Twitter 橫向連結圖", desc_en: "FB / Twitter landscape card", desc_ja: "X / FB 横型カード画像" },
+        { w: 21, h: 9, name: "21:9", desc_zh: "超寬螢幕 / 電影比例", desc_en: "Ultrawide / Cinema format", desc_ja: "ウルトラワイド / シネマ比率" }
     ];
 
     // Loaded Media Reference
@@ -353,11 +435,11 @@ document.addEventListener('DOMContentLoaded', () => {
         simpleH: 5
     };
 
-    // --- Language Toggle Handler ---
-    if (langToggleBtn) {
-        langToggleBtn.addEventListener('click', () => {
-            const newLang = currentLang === 'zh-TW' ? 'en' : 'zh-TW';
-            applyLanguage(newLang);
+    // --- Language Selector Listener ---
+    if (langSelect) {
+        langSelect.value = currentLang;
+        langSelect.addEventListener('change', (e) => {
+            applyLanguage(e.target.value);
         });
     }
 
@@ -387,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (sw > 100 || sh > 100) {
             const approx = approximateFraction(w / h);
-            const approxSuffix = currentLang === 'zh-TW' ? ' (約)' : ' (approx)';
+            const approxSuffix = currentLang === 'zh-TW' ? ' (約)' : (currentLang === 'ja' ? ' (概算)' : ' (approx)');
             return { sw: approx[0], sh: approx[1], str: `${approx[0]} : ${approx[1]}${approxSuffix}` };
         }
 
@@ -461,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Closest Standard Match
         const match = findClosestStandardRatio(currentRatio);
         closestStandardRatio.textContent = match.closest.name;
-        const matchDesc = currentLang === 'zh-TW' ? match.closest.desc_zh : match.closest.desc_en;
+        const matchDesc = currentLang === 'zh-TW' ? match.closest.desc_zh : (currentLang === 'ja' ? match.closest.desc_ja : match.closest.desc_en);
         closestAccuracy.textContent = getI18nStr('accuracy_text', match.accuracy, matchDesc);
 
         // 4. Normalized Ratios
@@ -524,26 +606,41 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateRecommendations(w, h, ratio, closest) {
         let recs = [];
         const isEn = currentLang === 'en';
+        const isJa = currentLang === 'ja';
 
         if (Math.abs(ratio - 1) < 0.05) {
-            recs = isEn ? ["Instagram Post", "Profile Avatar", "App Icon"] : ["Instagram 正方形貼文", "社群大頭貼", "商品圖標"];
+            if (isJa) recs = ["Instagram スクエア投稿", "SNSプロフィール画像", "アイコン画像"];
+            else if (isEn) recs = ["Instagram Post", "Profile Avatar", "App Icon"];
+            else recs = ["Instagram 正方形貼文", "社群大頭貼", "商品圖標"];
         } else if (Math.abs(ratio - (4/5)) < 0.05) {
-            recs = isEn ? ["Instagram Vertical Post (Full Frame)", "Pinterest Pin", "Phone Wallpaper"] : ["Instagram 垂直貼文 (滿版不剪裁)", "Pinterest 垂直圖", "手機壁紙"];
+            if (isJa) recs = ["Instagram 縦型投稿 (ノーカット)", "Pinterest ピン", "スマホ壁紙"];
+            else if (isEn) recs = ["Instagram Vertical Post (Full Frame)", "Pinterest Pin", "Phone Wallpaper"];
+            else recs = ["Instagram 垂直貼文 (滿版不剪裁)", "Pinterest 垂直圖", "手機壁紙"];
         } else if (Math.abs(ratio - (9/16)) < 0.05) {
-            recs = isEn ? ["Instagram Story", "TikTok / Shorts", "Full Screen Mobile Wallpaper"] : ["Instagram Story 限時動態", "TikTok / Shorts 短影音", "手機全螢幕桌布"];
+            if (isJa) recs = ["Instagram ストーリーズ", "TikTok / Shorts ショート動画", "スマホ全画面壁紙"];
+            else if (isEn) recs = ["Instagram Story", "TikTok / Shorts", "Full Screen Mobile Wallpaper"];
+            else recs = ["Instagram Story 限時動態", "TikTok / Shorts 短影音", "手機全螢幕桌布"];
         } else if (Math.abs(ratio - (16/9)) < 0.05) {
-            recs = isEn ? ["YouTube Video & Thumbnail", "Presentation Slides (16:9)", "Desktop Wallpaper", "HDTV Screen"] : ["YouTube 影片與封面", "簡報PPT (16:9)", "電腦桌布", "標準電視螢幕"];
+            if (isJa) recs = ["YouTube 動画＆サムネイル", "プレゼンスライド (16:9)", "PC壁紙", "テレビ画面"];
+            else if (isEn) recs = ["YouTube Video & Thumbnail", "Presentation Slides (16:9)", "Desktop Wallpaper", "HDTV Screen"];
+            else recs = ["YouTube 影片與封面", "簡報PPT (16:9)", "電腦桌布", "標準電視螢幕"];
         } else if (Math.abs(ratio - (3/2)) < 0.05 || Math.abs(ratio - (2/3)) < 0.05) {
-            recs = isEn ? ["DSLR Raw Photo", "Photo Print (4x6\")", "Gallery Photography"] : ["相機 Raw 原生照片", "相片沖印 (4x6 吋)", "藝廊攝影展覽"];
+            if (isJa) recs = ["カメラ RAW 原寸写真", "L判・KGサイズプリント", "写真展ギャラリー"];
+            else if (isEn) recs = ["DSLR Raw Photo", "Photo Print (4x6\")", "Gallery Photography"];
+            else recs = ["相機 Raw 原生照片", "相片沖印 (4x6 吋)", "藝廊攝影展覽"];
         } else if (Math.abs(ratio - (21/9)) < 0.08) {
-            recs = isEn ? ["Ultrawide Gaming Monitor", "Cinematic Film View", "Website Hero Banner"] : ["超寬電競螢幕", "電影膠卷視角", "網站全幅 Header banner"];
+            if (isJa) recs = ["ウルトラワイドゲーミングモニター", "映画シネマアスペクト比", "Webサイトヘッダーバナー"];
+            else if (isEn) recs = ["Ultrawide Gaming Monitor", "Cinematic Film View", "Website Hero Banner"];
+            else recs = ["超寬電競螢幕", "電影膠卷視角", "網站全幅 Header banner"];
         } else {
-            const desc = isEn ? closest.desc_en : closest.desc_zh;
-            recs.push(isEn ? `Best matching ${closest.name} (${desc})` : `最接近 ${closest.name} 展現 (${desc})`);
+            const desc = isJa ? closest.desc_ja : (isEn ? closest.desc_en : closest.desc_zh);
+            if (isJa) recs.push(`最も近い表示: ${closest.name} (${desc})`);
+            else if (isEn) recs.push(`Best matching ${closest.name} (${desc})`);
+            else recs.push(`最接近 ${closest.name} 展現 (${desc})`);
         }
 
         const prefix = getI18nStr('recommendation_prefix');
-        const separator = isEn ? ', ' : '、';
+        const separator = (isEn || isJa) ? ', ' : '、';
         recommendationText.textContent = `${prefix}${recs.join(separator)}`;
     }
 

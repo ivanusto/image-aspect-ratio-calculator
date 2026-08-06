@@ -1,6 +1,6 @@
 # Aspect Ratio & Crop Pro (Image & Video Ratio Calculator & Cropper)
 
-[繁體中文說明](README.zh-TW.md)
+🌐 **Languages / 多語言**: [English](README.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md)
 
 > A modern, privacy-first, 100% client-side web application for image and video aspect ratio calculation, real-time center-cropping, and high-quality export.
 
