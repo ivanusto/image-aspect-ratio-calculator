@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>圖片與影片比例智慧計算與裁切器 | Aspect Ratio & Crop Pro</title>
-    <meta name="description" content="免費且注重隱私的線上圖片與影片比例計算及即時裁切工具，支援拖曳貼圖、自動算比例、等比例縮放與一鍵匯出裁切圖片。">
+    <title id="pageTitle" data-i18n="meta.title">Aspect Ratio & Crop Pro | Smart Image & Video Calculator</title>
+    <meta name="description" id="metaDescription" content="Free & privacy-first online aspect ratio calculator & cropper for images and videos. Instant crop, auto ratio calculation, and smart resizing.">
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0B0F19">
-    <!-- Declare large rel=icon sizes too: a browser that only scans rel=icon and
-         finds nothing above 32px falls back to a generated letter tile. -->
     <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
     <link rel="icon" href="icons/icon-512.png" sizes="512x512" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="icons/apple-touch-icon.png">
-    <meta name="application-name" content="比例裁切">
+    <meta name="application-name" content="Aspect Ratio Pro">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="比例裁切">
+    <meta name="apple-mobile-web-app-title" content="Aspect Ratio Pro">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,16 +41,19 @@
                     <i class="fa-solid fa-crop-simple"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>圖片影片比例計算與裁切</h1>
-                    <p>隱私優先・純前端本地運算・一鍵比例裁切與縮放</p>
+                    <h1 data-i18n="header.title">Aspect Ratio & Crop Pro</h1>
+                    <p data-i18n="header.subtitle">Privacy-First • 100% Client-Side • Instant Ratio Cropping & Resizing</p>
                 </div>
             </div>
             <div class="header-badges">
+                <button id="langToggleBtn" class="badge lang-badge" title="Switch Language / 切換語言">
+                    <i class="fa-solid fa-language"></i> <span id="langBtnText">繁體中文</span>
+                </button>
                 <a href="https://yblog.org" target="_blank" rel="noopener" class="badge link-badge">
                     <i class="fa-solid fa-globe"></i> yblog.org
                 </a>
                 <a href="https://github.com/ivanusto/image-aspect-ratio-calculator" target="_blank" rel="noopener" class="badge link-badge">
-                    <i class="fa-brands fa-github"></i> GitHub 專案
+                    <i class="fa-brands fa-github"></i> <span data-i18n="header.github">GitHub</span>
                 </a>
             </div>
         </header>
@@ -62,17 +63,17 @@
             <!-- Left Column: Input & Results -->
             <section class="panel input-section">
                 <div class="panel-header">
-                    <h2><i class="fa-solid fa-arrow-input-down"></i> 輸入尺寸或載入檔案</h2>
-                    <span class="sub-text">貼上文字「1024 x 1280」或拖入圖片</span>
+                    <h2><i class="fa-solid fa-arrow-input-down"></i> <span data-i18n="input.section_title">Dimensions & File Input</span></h2>
+                    <span class="sub-text" data-i18n="input.section_subtitle">Paste text '1024 x 1280' or drop a file</span>
                 </div>
 
                 <!-- Fast Smart Input Bar -->
                 <div class="smart-input-container">
-                    <label for="smartInput">快速貼上 / 混合文字解析</label>
+                    <label for="smartInput" data-i18n="input.smart_label">Fast Paste & Smart Text Parser</label>
                     <div class="input-wrapper">
                         <i class="fa-solid fa-wand-magic-sparkles input-icon"></i>
-                        <input type="text" id="smartInput" placeholder="貼上例如：1024 x 1280、1024*1280 或 1024, 1280..." value="1024 x 1280" autocomplete="off">
-                        <button id="pasteBtn" class="btn-icon" title="從剪貼簿貼上"><i class="fa-regular fa-clipboard"></i></button>
+                        <input type="text" id="smartInput" data-i18n-placeholder="input.smart_placeholder" placeholder="Paste e.g.: 1024 x 1280, 1024*1280 or 1024, 1280..." value="1024 x 1280" autocomplete="off">
+                        <button id="pasteBtn" class="btn-icon" data-i18n-title="input.paste_btn_title" title="Paste from Clipboard"><i class="fa-regular fa-clipboard"></i></button>
                     </div>
                 </div>
 
@@ -80,12 +81,12 @@
                 <div class="drop-zone" id="dropZone">
                     <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
                     <p class="drop-title">
-                        <span class="hide-on-mobile">拖曳圖片/影片檔案到此處，或點擊選擇檔案</span>
-                        <span class="show-on-mobile">點擊選擇照片或影片</span>
+                        <span class="hide-on-mobile" data-i18n="drop.desktop_title">Drag & drop image/video here, or click to browse</span>
+                        <span class="show-on-mobile" data-i18n="drop.mobile_title">Tap to select image or video</span>
                     </p>
                     <p class="drop-hint">
-                        <span class="hide-on-mobile">支援 JPG, PNG, WEBP, GIF, MP4, WEBM (直接 Ctrl+V 貼圖也可)</span>
-                        <span class="show-on-mobile">支援 JPG、PNG、WEBP、GIF、MP4、WEBM</span>
+                        <span class="hide-on-mobile" data-i18n="drop.desktop_hint">Supports JPG, PNG, WEBP, GIF, MP4, WEBM (Or press Ctrl+V to paste)</span>
+                        <span class="show-on-mobile" data-i18n="drop.mobile_hint">Supports JPG, PNG, WEBP, GIF, MP4, WEBM</span>
                     </p>
                     <input type="file" id="fileInput" accept="image/*,video/*" class="file-input-hidden">
                 </div>
@@ -93,21 +94,21 @@
                 <!-- Discrete Inputs (Width x Height) -->
                 <div class="dimension-inputs-grid">
                     <div class="input-group">
-                        <label for="widthInput"><i class="fa-solid fa-arrows-left-right"></i> 寬度 (Width)</label>
+                        <label for="widthInput"><i class="fa-solid fa-arrows-left-right"></i> <span data-i18n="input.width_label">Width</span></label>
                         <div class="number-input-wrap">
-                            <input type="number" id="widthInput" value="1024" min="1" max="100000" placeholder="寬 px">
+                            <input type="number" id="widthInput" value="1024" min="1" max="100000" data-i18n-placeholder="input.width_placeholder" placeholder="W px">
                             <span class="unit">px</span>
                         </div>
                     </div>
 
-                    <button id="swapBtn" class="btn-swap" title="對調寬高">
+                    <button id="swapBtn" class="btn-swap" data-i18n-title="input.swap_title" title="Swap Width & Height">
                         <i class="fa-solid fa-arrows-rotate"></i>
                     </button>
 
                     <div class="input-group">
-                        <label for="heightInput"><i class="fa-solid fa-arrows-up-down"></i> 高度 (Height)</label>
+                        <label for="heightInput"><i class="fa-solid fa-arrows-up-down"></i> <span data-i18n="input.height_label">Height</span></label>
                         <div class="number-input-wrap">
-                            <input type="number" id="heightInput" value="1280" min="1" max="100000" placeholder="高 px">
+                            <input type="number" id="heightInput" value="1280" min="1" max="100000" data-i18n-placeholder="input.height_placeholder" placeholder="H px">
                             <span class="unit">px</span>
                         </div>
                     </div>
@@ -115,7 +116,7 @@
 
                 <!-- Quick Presets Carousel/Grid -->
                 <div class="presets-wrapper">
-                    <span class="section-subtitle"><i class="fa-solid fa-bookmark"></i> 常用快捷尺寸與比例</span>
+                    <span class="section-subtitle"><i class="fa-solid fa-bookmark"></i> <span data-i18n="presets.title">Popular Ratios & Presets</span></span>
                     <div class="preset-chips">
                         <button class="chip" data-w="1024" data-h="1280">1024 × 1280 (4:5)</button>
                         <button class="chip" data-w="1920" data-h="1080">1920 × 1080 (16:9)</button>
@@ -130,49 +131,49 @@
                 <!-- Calculation Result Cards -->
                 <div class="results-dashboard">
                     <div class="result-card primary-card">
-                        <div class="card-tag">最簡整數比例</div>
+                        <div class="card-tag" data-i18n="results.simplified_ratio">Simplified Ratio</div>
                         <div class="ratio-big" id="simpleRatioDisplay">4 : 5</div>
                         <div class="ratio-sub" id="ratioOrientationTag">
-                            <span class="tag-badge portrait"><i class="fa-solid fa-mobile-screen"></i> 直向 (Portrait)</span>
+                            <span class="tag-badge portrait"><i class="fa-solid fa-mobile-screen"></i> Portrait</span>
                         </div>
                     </div>
 
                     <div class="result-stats-grid">
                         <div class="stat-box">
-                            <span class="stat-label">最接近標準比例</span>
+                            <span class="stat-label" data-i18n="results.closest_match">Closest Standard Match</span>
                             <span class="stat-val" id="closestStandardRatio">4:5</span>
-                            <span class="stat-desc" id="closestAccuracy">精確度 100%</span>
+                            <span class="stat-desc" id="closestAccuracy">Accuracy 100%</span>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">歸一化比例 (寬=1)</span>
+                            <span class="stat-label" data-i18n="results.norm_w">Normalized Ratio (W=1)</span>
                             <span class="stat-val" id="normalizedW">1 : 1.25</span>
                             <button class="btn-mini-copy" data-copy-target="normalizedW"><i class="fa-regular fa-copy"></i></button>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">歸一化比例 (高=1)</span>
+                            <span class="stat-label" data-i18n="results.norm_h">Normalized Ratio (H=1)</span>
                             <span class="stat-val" id="normalizedH">0.8 : 1</span>
                             <button class="btn-mini-copy" data-copy-target="normalizedH"><i class="fa-regular fa-copy"></i></button>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-label">總像素與畫質</span>
+                            <span class="stat-label" data-i18n="results.total_px">Total Pixels & Quality</span>
                             <span class="stat-val" id="totalPixels">1,310,720 px</span>
-                            <span class="stat-desc" id="megapixels">約 1.31 MP</span>
+                            <span class="stat-desc" id="megapixels">~1.31 MP</span>
                         </div>
                     </div>
 
                     <!-- Usage Recommendations Tag -->
                     <div class="recommendation-card" id="recommendationBox">
                         <i class="fa-solid fa-circle-info"></i>
-                        <span id="recommendationText">適合：Instagram 貼文、Pinterest 垂直圖片、手機桌布</span>
+                        <span id="recommendationText">Best Suited For: Instagram Vertical Post, Pinterest Pin, Phone Wallpaper</span>
                     </div>
 
                     <!-- Copy Code Buttons -->
                     <div class="copy-actions">
                         <button class="btn-action primary" id="copyRatioBtn">
-                            <i class="fa-solid fa-copy"></i> 複製比例 (4:5)
+                            <i class="fa-solid fa-copy"></i> <span id="copyRatioBtnText">Copy Ratio (4:5)</span>
                         </button>
                         <button class="btn-action secondary" id="copyCssBtn">
-                            <i class="fa-solid fa-code"></i> 複製 CSS (aspect-ratio)
+                            <i class="fa-solid fa-code"></i> <span data-i18n="results.copy_css">Copy CSS (aspect-ratio)</span>
                         </button>
                     </div>
                 </div>
@@ -182,10 +183,10 @@
             <section class="panel preview-section">
                 <!-- Preview Header & Options -->
                 <div class="panel-header">
-                    <h2><i class="fa-solid fa-eye"></i> 即時視覺預覽與裁切框</h2>
+                    <h2><i class="fa-solid fa-eye"></i> <span data-i18n="preview.title">Live Visual Preview & Crop Viewport</span></h2>
                     <div class="header-controls">
-                        <button class="btn-toggle active" id="toggleGridBtn" title="開關三分法輔助網格">
-                            <i class="fa-solid fa-border-all"></i> 網格
+                        <button class="btn-toggle active" id="toggleGridBtn" data-i18n-title="preview.grid_title" title="Toggle Rule-of-Thirds Grid">
+                            <i class="fa-solid fa-border-all"></i> <span data-i18n="preview.grid_btn">Grid</span>
                         </button>
                     </div>
                 </div>
@@ -208,55 +209,55 @@
 
                 <!-- Canvas Image Crop & Export Studio -->
                 <div class="panel-sub-card crop-studio-box" id="cropStudioBox">
-                    <h3><i class="fa-solid fa-crop"></i> 圖片智慧比例裁切與高畫質下載</h3>
-                    <p class="sub-desc">已載入圖片，可以依照目標比例進行居中裁切並輸出新圖片文件：</p>
+                    <h3><i class="fa-solid fa-crop"></i> <span data-i18n="crop.title">Image Aspect Cropper & HD Export</span></h3>
+                    <p class="sub-desc" id="cropSubDesc" data-i18n="crop.desc">Media loaded! Center-crop to target aspect ratio and export high quality images:</p>
 
                     <div class="crop-controls-grid">
                         <div class="crop-group">
-                            <label for="exportFormat">輸出格式</label>
+                            <label for="exportFormat" data-i18n="crop.format_label">Export Format</label>
                             <select id="exportFormat" class="select-input">
-                                <option value="image/jpeg" selected>JPG / JPEG (相容性最佳)</option>
-                                <option value="image/png">PNG (無損高品質)</option>
-                                <option value="image/webp">WEBP (檔案小，相簿可能不支援)</option>
+                                <option value="image/jpeg" selected data-i18n="crop.format_jpg">JPG / JPEG (Best Compatibility)</option>
+                                <option value="image/png" data-i18n="crop.format_png">PNG (Lossless High Quality)</option>
+                                <option value="image/webp" data-i18n="crop.format_webp">WEBP (Compact Size)</option>
                             </select>
                         </div>
                         <div class="crop-group">
-                            <label for="exportQuality">畫質品質 (<span id="qualityValText">92%</span>)</label>
+                            <label for="exportQuality"><span data-i18n="crop.quality_label">Quality Level</span> (<span id="qualityValText">92%</span>)</label>
                             <input type="range" id="exportQuality" min="50" max="100" value="92" class="range-input">
                         </div>
                         <div class="crop-group">
-                            <label for="cropFitMode">裁切充填模式</label>
+                            <label for="cropFitMode" data-i18n="crop.fit_label">Crop Fit Mode</label>
                             <select id="cropFitMode" class="select-input">
-                                <option value="cover" selected>Cover 滿版居中裁切</option>
-                                <option value="contain">Contain 留白完整包含</option>
+                                <option value="cover" selected data-i18n="crop.fit_cover">Cover (Center Crop)</option>
+                                <option value="contain" data-i18n="crop.fit_contain">Contain (Padded Fit)</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="export-actions">
                         <button class="btn-action primary share-btn hidden" id="exportShareBtn">
-                            <i class="fa-solid fa-share-from-square"></i> 裁切並存到相簿 / 分享
+                            <i class="fa-solid fa-share-from-square"></i> <span data-i18n="crop.share_btn">Crop & Save to Photos / Share</span>
                         </button>
                         <button class="btn-action primary export-btn" id="exportCropBtn">
-                            <i class="fa-solid fa-download"></i> 裁切並下載檔案
+                            <i class="fa-solid fa-download"></i> <span id="exportCropBtnText">Crop & Download Image</span>
                         </button>
                     </div>
                     <p class="export-note hidden" id="exportShareNote">
                         <i class="fa-solid fa-circle-info"></i>
-                        手機請用上方「存到相簿」，在系統選單中選擇「儲存影像」。瀏覽器的下載只會存進檔案資料夾，不會進相簿。
+                        <span data-i18n="crop.share_note">On mobile devices, tap 'Save to Photos' above and choose 'Save Image' from system menu.</span>
                     </p>
                 </div>
 
                 <!-- Aspect Ratio Scale / Resizer Calculator -->
                 <div class="panel-sub-card resizer-box">
-                    <h3><i class="fa-solid fa-calculator"></i> 依此比例等比例縮放算尺寸</h3>
-                    <p class="sub-desc">鎖定目前比例 (<span id="currentLockRatioText">4:5</span>)，輸入新的寬或高：</p>
+                    <h3><i class="fa-solid fa-calculator"></i> <span data-i18n="scaler.title">Aspect Ratio Resizer Calculator</span></h3>
+                    <p class="sub-desc" id="scalerSubDesc">Locked aspect ratio (<span id="currentLockRatioText">4:5</span>). Enter new width or height:</p>
                     
                     <div class="scaler-grid">
                         <div class="scale-group">
-                            <label for="scaleWidth">目標寬度 (Target W)</label>
+                            <label for="scaleWidth" data-i18n="scaler.width_label">Target Width</label>
                             <div class="number-input-wrap">
-                                <input type="number" id="scaleWidth" placeholder="輸入新寬度" value="1024">
+                                <input type="number" id="scaleWidth" data-i18n-placeholder="scaler.width_placeholder" placeholder="New Width" value="1024">
                                 <span class="unit">px</span>
                             </div>
                         </div>
@@ -264,16 +265,16 @@
                             <i class="fa-solid fa-link"></i>
                         </div>
                         <div class="scale-group">
-                            <label for="scaleHeight">目標高度 (Target H)</label>
+                            <label for="scaleHeight" data-i18n="scaler.height_label">Target Height</label>
                             <div class="number-input-wrap">
-                                <input type="number" id="scaleHeight" placeholder="計算得出" value="1280">
+                                <input type="number" id="scaleHeight" data-i18n-placeholder="scaler.height_placeholder" placeholder="Calculated Height" value="1280">
                                 <span class="unit">px</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="quick-scale-btns">
-                        <span class="small-label">常見放大/縮小：</span>
+                        <span class="small-label" data-i18n="scaler.quick_scale">Quick Scale:</span>
                         <button class="btn-pill" data-scale="0.5">50%</button>
                         <button class="btn-pill" data-scale="0.75">75%</button>
                         <button class="btn-pill" data-scale="1.5">150%</button>
@@ -283,47 +284,47 @@
 
                 <!-- Reference Ratios Card -->
                 <div class="reference-ratios">
-                    <h3><i class="fa-solid fa-layer-group"></i> 常見標準比例一覽表 (點擊直接套用)</h3>
+                    <h3><i class="fa-solid fa-layer-group"></i> <span data-i18n="ref.title">Standard Aspect Ratio Cheat Sheet (Click to Apply)</span></h3>
                     <div class="ref-grid">
                         <div class="ref-item" data-aspect-w="1" data-aspect-h="1">
                             <div class="mini-thumb ratio-1-1"></div>
                             <span class="ref-name">1 : 1</span>
-                            <span class="ref-desc">正方形 (1080×1080)</span>
+                            <span class="ref-desc" data-i18n="ref.1_1">Square (1080×1080)</span>
                         </div>
                         <div class="ref-item" data-aspect-w="4" data-aspect-h="5">
                             <div class="mini-thumb ratio-4-5"></div>
                             <span class="ref-name">4 : 5</span>
-                            <span class="ref-desc">社群貼文 (1024×1280)</span>
+                            <span class="ref-desc" data-i18n="ref.4_5">Social Post (1024×1280)</span>
                         </div>
                         <div class="ref-item" data-aspect-w="16" data-aspect-h="9">
                             <div class="mini-thumb ratio-16-9"></div>
                             <span class="ref-name">16 : 9</span>
-                            <span class="ref-desc">橫向影片 (1920×1080)</span>
+                            <span class="ref-desc" data-i18n="ref.16_9">Landscape Video (1920×1080)</span>
                         </div>
                         <div class="ref-item" data-aspect-w="9" data-aspect-h="16">
                             <div class="mini-thumb ratio-9-16"></div>
                             <span class="ref-name">9 : 16</span>
-                            <span class="ref-desc">限時動態 / Reels</span>
+                            <span class="ref-desc" data-i18n="ref.9_16">Stories / Reels / Shorts</span>
                         </div>
                         <div class="ref-item" data-aspect-w="4" data-aspect-h="3">
                             <div class="mini-thumb ratio-4-3"></div>
                             <span class="ref-name">4 : 3</span>
-                            <span class="ref-desc">傳統螢幕 / iPad</span>
+                            <span class="ref-desc" data-i18n="ref.4_3">Classic Display / iPad</span>
                         </div>
                         <div class="ref-item" data-aspect-w="3" data-aspect-h="2">
                             <div class="mini-thumb ratio-3-2"></div>
                             <span class="ref-name">3 : 2</span>
-                            <span class="ref-desc">單眼相機相片</span>
+                            <span class="ref-desc" data-i18n="ref.3_2">DSLR Photo (35mm)</span>
                         </div>
                         <div class="ref-item" data-aspect-w="21" data-aspect-h="9">
                             <div class="mini-thumb ratio-21-9"></div>
                             <span class="ref-name">21 : 9</span>
-                            <span class="ref-desc">超寬螢幕 / 電影</span>
+                            <span class="ref-desc" data-i18n="ref.21_9">Ultrawide / Cinematic</span>
                         </div>
                         <div class="ref-item" data-aspect-w="2" data-aspect-h="3">
                             <div class="mini-thumb ratio-2-3"></div>
                             <span class="ref-name">2 : 3</span>
-                            <span class="ref-desc">直向寫真照</span>
+                            <span class="ref-desc" data-i18n="ref.2_3">Portrait Photo</span>
                         </div>
                     </div>
                 </div>
@@ -336,18 +337,16 @@
         <!-- Toast Notification Container -->
         <div id="toast" class="toast hidden">
             <i class="fa-solid fa-circle-check"></i>
-            <span id="toastMsg">已複製到剪貼簿！</span>
+            <span id="toastMsg">Copied to clipboard!</span>
         </div>
 
         <footer class="app-footer">
-            <p>圖片與影片比例智慧計算與裁切器 &copy; 2026 | 開發者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 個人網站 <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a></p>
+            <p id="footerText">Aspect Ratio & Crop Pro &copy; 2026 | Developed by <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | Website <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a></p>
         </footer>
     </div>
 
     <script src="app.js"></script>
     <script>
-        // Registered after load so the SW never competes with the first paint.
-        // file:// has no SW support, so double-clicking index.html still works.
         if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').catch(() => { /* offline support is optional */ });

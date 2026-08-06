@@ -165,9 +165,23 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    outline: none;
 }
 
-.badge i {
+.badge:hover {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: var(--border-color-glow);
+    color: var(--text-primary);
+}
+
+.lang-badge i {
+    color: var(--accent-cyan);
+}
+
+.link-badge i {
     color: var(--accent-emerald);
 }
 
