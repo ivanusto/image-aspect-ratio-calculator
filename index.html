@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圖片與影片比例智慧計算與裁切器 | Aspect Ratio & Crop Pro</title>
+    <meta name="description" content="免費且注重隱私的線上圖片與影片比例計算及即時裁切工具，支援拖曳貼圖、自動算比例、等比例縮放與一鍵匯出裁切圖片。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-crop-simple"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>圖片與影片比例智慧計算與裁切器</h1>
+                    <p>隱私優先・純前端本地運算・一鍵比例裁切與縮放</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <a href="https://yblog.org" target="_blank" rel="noopener" class="badge link-badge">
+                    <i class="fa-solid fa-globe"></i> yblog.org
+                </a>
+                <a href="https://github.com/ivanusto/image-aspect-ratio-calculator" target="_blank" rel="noopener" class="badge link-badge">
+                    <i class="fa-brands fa-github"></i> GitHub 專案
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Left Column: Input & Results -->
+            <section class="panel input-section">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-arrow-input-down"></i> 輸入尺寸或載入檔案</h2>
+                    <span class="sub-text">貼上文字「1024 x 1280」或拖入圖片</span>
+                </div>
+
+                <!-- Fast Smart Input Bar -->
+                <div class="smart-input-container">
+                    <label for="smartInput">快速貼上 / 混合文字解析</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-wand-magic-sparkles input-icon"></i>
+                        <input type="text" id="smartInput" placeholder="貼上例如：1024 x 1280、1024*1280 或 1024, 1280..." value="1024 x 1280" autocomplete="off">
+                        <button id="pasteBtn" class="btn-icon" title="從剪貼簿貼上"><i class="fa-regular fa-clipboard"></i></button>
+                    </div>
+                </div>
+
+                <!-- Dropzone / Image & Video Paste Drop -->
+                <div class="drop-zone" id="dropZone">
+                    <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                    <p class="drop-title">拖曳圖片/影片檔案到此處，或點擊選擇檔案</p>
+                    <p class="drop-hint">支援 JPG, PNG, WEBP, GIF, MP4, WEBM (直接 Ctrl+V 貼圖也可)</p>
+                    <input type="file" id="fileInput" accept="image/*,video/*" class="file-input-hidden">
+                </div>
+
+                <!-- Discrete Inputs (Width x Height) -->
+                <div class="dimension-inputs-grid">
+                    <div class="input-group">
+                        <label for="widthInput"><i class="fa-solid fa-arrows-left-right"></i> 寬度 (Width)</label>
+                        <div class="number-input-wrap">
+                            <input type="number" id="widthInput" value="1024" min="1" max="100000" placeholder="寬 px">
+                            <span class="unit">px</span>
+                        </div>
+                    </div>
+
+                    <button id="swapBtn" class="btn-swap" title="對調寬高">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+
+                    <div class="input-group">
+                        <label for="heightInput"><i class="fa-solid fa-arrows-up-down"></i> 高度 (Height)</label>
+                        <div class="number-input-wrap">
+                            <input type="number" id="heightInput" value="1280" min="1" max="100000" placeholder="高 px">
+                            <span class="unit">px</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Presets Carousel/Grid -->
+                <div class="presets-wrapper">
+                    <span class="section-subtitle"><i class="fa-solid fa-bookmark"></i> 常用快捷尺寸與比例</span>
+                    <div class="preset-chips">
+                        <button class="chip" data-w="1024" data-h="1280">1024 × 1280 (4:5)</button>
+                        <button class="chip" data-w="1920" data-h="1080">1920 × 1080 (16:9)</button>
+                        <button class="chip" data-w="1080" data-h="1920">1080 × 1920 (9:16)</button>
+                        <button class="chip" data-w="1080" data-h="1080">1080 × 1080 (1:1)</button>
+                        <button class="chip" data-w="1200" data-h="630">1200 × 630 (1.91:1)</button>
+                        <button class="chip" data-w="2560" data-h="1440">2560 × 1440 (2K)</button>
+                        <button class="chip" data-w="3840" data-h="2160">3840 × 2160 (4K)</button>
+                    </div>
+                </div>
+
+                <!-- Calculation Result Cards -->
+                <div class="results-dashboard">
+                    <div class="result-card primary-card">
+                        <div class="card-tag">最簡整數比例</div>
+                        <div class="ratio-big" id="simpleRatioDisplay">4 : 5</div>
+                        <div class="ratio-sub" id="ratioOrientationTag">
+                            <span class="tag-badge portrait"><i class="fa-solid fa-mobile-screen"></i> 直向 (Portrait)</span>
+                        </div>
+                    </div>
+
+                    <div class="result-stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">最接近標準比例</span>
+                            <span class="stat-val" id="closestStandardRatio">4:5</span>
+                            <span class="stat-desc" id="closestAccuracy">精確度 100%</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">歸一化比例 (寬=1)</span>
+                            <span class="stat-val" id="normalizedW">1 : 1.25</span>
+                            <button class="btn-mini-copy" data-copy-target="normalizedW"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">歸一化比例 (高=1)</span>
+                            <span class="stat-val" id="normalizedH">0.8 : 1</span>
+                            <button class="btn-mini-copy" data-copy-target="normalizedH"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">總像素與畫質</span>
+                            <span class="stat-val" id="totalPixels">1,310,720 px</span>
+                            <span class="stat-desc" id="megapixels">約 1.31 MP</span>
+                        </div>
+                    </div>
+
+                    <!-- Usage Recommendations Tag -->
+                    <div class="recommendation-card" id="recommendationBox">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span id="recommendationText">適合：Instagram 貼文、Pinterest 垂直圖片、手機桌布</span>
+                    </div>
+
+                    <!-- Copy Code Buttons -->
+                    <div class="copy-actions">
+                        <button class="btn-action primary" id="copyRatioBtn">
+                            <i class="fa-solid fa-copy"></i> 複製比例 (4:5)
+                        </button>
+                        <button class="btn-action secondary" id="copyCssBtn">
+                            <i class="fa-solid fa-code"></i> 複製 CSS (aspect-ratio)
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: Visual Preview & Cropper Tools -->
+            <section class="panel preview-section">
+                <!-- Preview Header & Options -->
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-eye"></i> 即時視覺預覽與裁切框</h2>
+                    <div class="header-controls">
+                        <button class="btn-toggle active" id="toggleGridBtn" title="開關三分法輔助網格">
+                            <i class="fa-solid fa-border-all"></i> 網格
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Canvas Container -->
+                <div class="visual-viewport" id="viewport">
+                    <div class="aspect-box" id="aspectBox">
+                        <div class="grid-overlay" id="gridOverlay">
+                            <div class="grid-line horizontal h1"></div>
+                            <div class="grid-line horizontal h2"></div>
+                            <div class="grid-line vertical v1"></div>
+                            <div class="grid-line vertical v2"></div>
+                        </div>
+                        <img id="previewImg" src="" alt="Preview Image" class="preview-image hidden">
+                        <video id="previewVideo" class="preview-video hidden" controls autoplay loop muted></video>
+                        <div class="box-dimensions-tag" id="boxDimensionsTag">1024 × 1280</div>
+                        <div class="box-ratio-center" id="boxRatioCenter">4 : 5</div>
+                    </div>
+                </div>
+
+                <!-- Canvas Image Crop & Export Studio -->
+                <div class="panel-sub-card crop-studio-box" id="cropStudioBox">
+                    <h3><i class="fa-solid fa-crop"></i> 圖片智慧比例裁切與高畫質下載</h3>
+                    <p class="sub-desc">已載入圖片，可以依照目標比例進行居中裁切並輸出新圖片文件：</p>
+
+                    <div class="crop-controls-grid">
+                        <div class="crop-group">
+                            <label for="exportFormat">輸出格式</label>
+                            <select id="exportFormat" class="select-input">
+                                <option value="image/jpeg">JPG / JPEG (檔案小)</option>
+                                <option value="image/png">PNG (無損高品質)</option>
+                                <option value="image/webp" selected>WEBP (新一代高效格式)</option>
+                            </select>
+                        </div>
+                        <div class="crop-group">
+                            <label for="exportQuality">畫質品質 (<span id="qualityValText">92%</span>)</label>
+                            <input type="range" id="exportQuality" min="50" max="100" value="92" class="range-input">
+                        </div>
+                        <div class="crop-group">
+                            <label for="cropFitMode">裁切充填模式</label>
+                            <select id="cropFitMode" class="select-input">
+                                <option value="cover" selected>Cover 滿版居中裁切</option>
+                                <option value="contain">Contain 留白完整包含</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-action primary export-btn" id="exportCropBtn">
+                        <i class="fa-solid fa-download"></i> 依當前比例裁切並下載圖片
+                    </button>
+                </div>
+
+                <!-- Aspect Ratio Scale / Resizer Calculator -->
+                <div class="panel-sub-card resizer-box">
+                    <h3><i class="fa-solid fa-calculator"></i> 依此比例等比例縮放算尺寸</h3>
+                    <p class="sub-desc">鎖定目前比例 (<span id="currentLockRatioText">4:5</span>)，輸入新的寬或高：</p>
+                    
+                    <div class="scaler-grid">
+                        <div class="scale-group">
+                            <label for="scaleWidth">目標寬度 (Target W)</label>
+                            <div class="number-input-wrap">
+                                <input type="number" id="scaleWidth" placeholder="輸入新寬度" value="1024">
+                                <span class="unit">px</span>
+                            </div>
+                        </div>
+                        <div class="scale-link-icon">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <div class="scale-group">
+                            <label for="scaleHeight">目標高度 (Target H)</label>
+                            <div class="number-input-wrap">
+                                <input type="number" id="scaleHeight" placeholder="計算得出" value="1280">
+                                <span class="unit">px</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-scale-btns">
+                        <span class="small-label">常見放大/縮小：</span>
+                        <button class="btn-pill" data-scale="0.5">50%</button>
+                        <button class="btn-pill" data-scale="0.75">75%</button>
+                        <button class="btn-pill" data-scale="1.5">150%</button>
+                        <button class="btn-pill" data-scale="2">200% (2X)</button>
+                    </div>
+                </div>
+
+                <!-- Reference Ratios Card -->
+                <div class="reference-ratios">
+                    <h3><i class="fa-solid fa-layer-group"></i> 常見標準比例一覽表 (點擊直接套用)</h3>
+                    <div class="ref-grid">
+                        <div class="ref-item" data-aspect-w="1" data-aspect-h="1">
+                            <div class="mini-thumb ratio-1-1"></div>
+                            <span class="ref-name">1 : 1</span>
+                            <span class="ref-desc">正方形 (1080×1080)</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="4" data-aspect-h="5">
+                            <div class="mini-thumb ratio-4-5"></div>
+                            <span class="ref-name">4 : 5</span>
+                            <span class="ref-desc">社群貼文 (1024×1280)</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="16" data-aspect-h="9">
+                            <div class="mini-thumb ratio-16-9"></div>
+                            <span class="ref-name">16 : 9</span>
+                            <span class="ref-desc">橫向影片 (1920×1080)</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="9" data-aspect-h="16">
+                            <div class="mini-thumb ratio-9-16"></div>
+                            <span class="ref-name">9 : 16</span>
+                            <span class="ref-desc">限時動態 / Reels</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="4" data-aspect-h="3">
+                            <div class="mini-thumb ratio-4-3"></div>
+                            <span class="ref-name">4 : 3</span>
+                            <span class="ref-desc">傳統螢幕 / iPad</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="3" data-aspect-h="2">
+                            <div class="mini-thumb ratio-3-2"></div>
+                            <span class="ref-name">3 : 2</span>
+                            <span class="ref-desc">單眼相機相片</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="21" data-aspect-h="9">
+                            <div class="mini-thumb ratio-21-9"></div>
+                            <span class="ref-name">21 : 9</span>
+                            <span class="ref-desc">超寬螢幕 / 電影</span>
+                        </div>
+                        <div class="ref-item" data-aspect-w="2" data-aspect-h="3">
+                            <div class="mini-thumb ratio-2-3"></div>
+                            <span class="ref-name">2 : 3</span>
+                            <span class="ref-desc">直向寫真照</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Hidden Canvas for Image Cropping & Exporting -->
+        <canvas id="hiddenExportCanvas" class="hidden"></canvas>
+
+        <!-- Toast Notification Container -->
+        <div id="toast" class="toast hidden">
+            <i class="fa-solid fa-circle-check"></i>
+            <span id="toastMsg">已複製到剪貼簿！</span>
+        </div>
+
+        <footer class="app-footer">
+            <p>圖片與影片比例智慧計算與裁切器 &copy; 2026 | 開發者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 個人網站 <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a></p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
