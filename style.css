@@ -1237,6 +1237,25 @@ body {
         display: none;
     }
 
+    /* Fade the cut-off edge so the rail reads as scrollable. Masking the content
+       itself rather than overlaying a gradient — the panel is translucent glass,
+       so any solid overlay would not match what sits behind it.
+       data-fade is maintained in app.js from the scroll position. */
+    .preset-chips[data-fade="right"] {
+        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent 100%);
+        mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent 100%);
+    }
+
+    .preset-chips[data-fade="left"] {
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 44px);
+        mask-image: linear-gradient(to right, transparent 0, #000 44px);
+    }
+
+    .preset-chips[data-fade="both"] {
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 44px), transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0, #000 44px, #000 calc(100% - 44px), transparent 100%);
+    }
+
     .chip {
         flex: 0 0 auto;
         scroll-snap-align: start;

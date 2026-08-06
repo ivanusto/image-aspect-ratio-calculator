@@ -313,6 +313,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Fade whichever edge of the preset rail still has chips hidden behind it,
+    // so it reads as scrollable rather than just looking cut off.
+    const presetChips = document.querySelector('.preset-chips');
+
+    // scroll-snap parks the rail on the first chip's edge, not on 0, so the
+    // resting "start" position is the container's left padding. Measured rather
+    // than hardcoded because that padding only exists at mobile widths.
+    let railStartSlack = 0;
+
+    function updatePresetFade() {
+        const overflow = presetChips.scrollWidth - presetChips.clientWidth;
+        if (overflow <= 1) {
+            presetChips.dataset.fade = 'none';
+            return;
+        }
+        const atStart = presetChips.scrollLeft <= railStartSlack + 1;
+        const atEnd = presetChips.scrollLeft >= overflow - 1;
+        presetChips.dataset.fade = atStart ? 'right' : (atEnd ? 'left' : 'both');
+    }
+
+    function measurePresetRail() {
+        railStartSlack = parseFloat(getComputedStyle(presetChips).paddingLeft) || 0;
+        updatePresetFade();
+    }
+
+    presetChips.addEventListener('scroll', updatePresetFade, { passive: true });
+    window.addEventListener('resize', measurePresetRail);
+    measurePresetRail();
+
     document.querySelectorAll('.ref-item').forEach(item => {
         item.addEventListener('click', () => {
             const rw = parseFloat(item.dataset.aspectW);
