@@ -1211,7 +1211,18 @@ body {
         min-height: 46px;
     }
 
-    /* --- Presets become a swipeable rail instead of a tall wrapped block --- */
+    /* --- Presets become a swipeable rail instead of a tall wrapped block ---
+       The rail's min-content is ~500px, and flex/grid items default to
+       min-width:auto, so without this the whole panel is forced wider than
+       its container and spills past the right edge of the screen. --- */
+    .container,
+    .workspace,
+    .panel,
+    .presets-wrapper,
+    .preset-chips {
+        min-width: 0;
+    }
+
     .preset-chips {
         flex-wrap: nowrap;
         overflow-x: auto;
