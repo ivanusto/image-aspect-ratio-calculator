@@ -5,7 +5,7 @@
  * and skipWaiting + clients.claim mean a returning visitor never gets stuck on
  * a stale build waiting for every tab to close.
  */
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `arc-pro-${CACHE_VERSION}`;
 
 // Relative to the SW's own scope, so this keeps working under the

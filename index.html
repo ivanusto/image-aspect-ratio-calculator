@@ -9,8 +9,14 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0B0F19">
+    <!-- Declare large rel=icon sizes too: a browser that only scans rel=icon and
+         finds nothing above 32px falls back to a generated letter tile. -->
     <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="icons/icon-512.png" sizes="512x512" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="icons/apple-touch-icon.png">
+    <meta name="application-name" content="比例裁切">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="比例裁切">
