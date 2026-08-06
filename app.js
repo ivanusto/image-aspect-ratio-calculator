@@ -1,5 +1,5 @@
 /**
- * Aspect Ratio Pro & Image Cropper Engine
+ * Aspect Ratio Pro & Image/Video Cropper Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -205,6 +205,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (source === 'discrete' || source === 'preset' || source === 'file') {
             smartInput.value = `${w} x ${h}`;
         }
+
+        // Update Crop Button text state
+        updateCropBtnState();
+    }
+
+    function updateCropBtnState() {
+        if (loadedImageObj) {
+            exportCropBtn.innerHTML = `<i class="fa-solid fa-scissors"></i> 依當前比例裁切圖片並下載`;
+        } else if (loadedVideoObj) {
+            exportCropBtn.innerHTML = `<i class="fa-solid fa-camera"></i> 截取影片當前畫面並依比例裁切下載 (截圖)`;
+        } else {
+            exportCropBtn.innerHTML = `<i class="fa-solid fa-layer-group"></i> 產生當前比例示範圖卡下載`;
+        }
     }
 
     function updateRecommendations(w, h, ratio, closest) {
@@ -397,15 +410,18 @@ document.addEventListener('DOMContentLoaded', () => {
         qualityValText.textContent = `${exportQuality.value}%`;
     });
 
-    // --- Image Crop & Export Engine ---
+    // --- Image & Video Crop/Screenshot Export Engine ---
     exportCropBtn.addEventListener('click', () => {
-        if (!loadedImageObj) {
-            // If user hasn't loaded custom image, create colored solid placeholder image canvas
+        if (loadedImageObj) {
+            // Process Uploaded Image
+            cropAndExportMedia(loadedImageObj, 'image');
+        } else if (loadedVideoObj) {
+            // Capture Current Frame of Video
+            cropAndExportMedia(loadedVideoObj, 'video');
+        } else {
+            // Generate Demo Color Card
             cropPlaceholderImage();
-            return;
         }
-
-        cropAndExportImage(loadedImageObj);
     });
 
     function cropPlaceholderImage() {
@@ -414,7 +430,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tempCanvas.height = state.height;
         const ctx = tempCanvas.getContext('2d');
         
-        // Render sleek gradient background as demo image
         const grad = ctx.createLinearGradient(0, 0, state.width, state.height);
         grad.addColorStop(0, '#6366F1');
         grad.addColorStop(1, '#06B6D4');
@@ -422,36 +437,43 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillRect(0, 0, state.width, state.height);
         
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = 'bold 36px sans-serif';
+        ctx.font = 'bold 42px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(`AspectRatioPro ${state.simpleW}:${state.simpleH}`, state.width / 2, state.height / 2);
 
         const demoImg = new Image();
-        demoImg.onload = () => cropAndExportImage(demoImg);
+        demoImg.onload = () => cropAndExportMedia(demoImg, 'demo');
         demoImg.src = tempCanvas.toDataURL();
     }
 
-    function cropAndExportImage(imgSource) {
+    function cropAndExportMedia(mediaSource, type) {
         const targetRatio = state.aspectRatioVal; // W / H
         const fitMode = cropFitMode.value;
 
-        const srcW = imgSource.naturalWidth || imgSource.width;
-        const srcH = imgSource.naturalHeight || imgSource.height;
+        // Get natural width and height from Image or Video
+        let srcW, srcH;
+        if (type === 'video') {
+            srcW = mediaSource.videoWidth;
+            srcH = mediaSource.videoHeight;
+        } else {
+            srcW = mediaSource.naturalWidth || mediaSource.width;
+            srcH = mediaSource.naturalHeight || mediaSource.height;
+        }
 
         let cropW, cropH, cropX, cropY;
         let outW, outH;
 
         if (fitMode === 'cover') {
-            // Crop center to fit target ratio
+            // Center Crop
             const srcRatio = srcW / srcH;
             if (srcRatio > targetRatio) {
-                // Source is wider, crop horizontal sides
+                // Source is wider, crop sides
                 cropH = srcH;
                 cropW = srcH * targetRatio;
                 cropX = (srcW - cropW) / 2;
                 cropY = 0;
             } else {
-                // Source is taller, crop vertical top/bottom
+                // Source is taller, crop top/bottom
                 cropW = srcW;
                 cropH = srcW / targetRatio;
                 cropX = 0;
@@ -476,32 +498,38 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.clearRect(0, 0, outW, outH);
 
         if (fitMode === 'contain') {
-            // Fill background with dark padded color
             ctx.fillStyle = '#0B0F19';
             ctx.fillRect(0, 0, outW, outH);
             const drawX = 0;
             const drawY = (outH - srcH) / 2;
-            ctx.drawImage(imgSource, 0, 0, srcW, srcH, drawX, drawY, srcW, srcH);
+            ctx.drawImage(mediaSource, 0, 0, srcW, srcH, drawX, drawY, srcW, srcH);
         } else {
-            ctx.drawImage(imgSource, cropX, cropY, cropW, cropH, 0, 0, outW, outH);
+            ctx.drawImage(mediaSource, cropX, cropY, cropW, cropH, 0, 0, outW, outH);
         }
 
-        // Export to selected format & quality
+        // Export Format & Quality
         const mimeType = exportFormat.value;
         const quality = parseFloat(exportQuality.value) / 100;
         const ext = mimeType === 'image/jpeg' ? 'jpg' : (mimeType === 'image/png' ? 'png' : 'webp');
 
         const dataUrl = hiddenExportCanvas.toDataURL(mimeType, quality);
 
-        // Trigger Download
+        // Download Trigger
+        const prefix = type === 'video' ? 'video_screenshot' : (type === 'demo' ? 'demo_card' : 'cropped');
         const a = document.createElement('a');
         a.href = dataUrl;
-        a.download = `cropped_${outW}x${outH}_${state.simpleW}x${state.simpleH}.${ext}`;
+        a.download = `${prefix}_${outW}x${outH}_${state.simpleW}x${state.simpleH}.${ext}`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
 
-        showToast(`已成功裁切並下載 (${outW} × ${outH} px)`);
+        if (type === 'video') {
+            showToast(`已成功截取影片當前畫面並裁切下載 (${outW} × ${outH} px)`);
+        } else if (type === 'image') {
+            showToast(`已成功裁切圖片並下載 (${outW} × ${outH} px)`);
+        } else {
+            showToast(`已下載比例示範圖卡 (${outW} × ${outH} px)`);
+        }
     }
 
     // --- Scaler Calculator ---
