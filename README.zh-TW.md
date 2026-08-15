@@ -45,7 +45,7 @@ python -m http.server 8080
 ## 🛠️ 更多免費實用線上工具
 
 歡迎體驗同系列注重隱私的純前端線上工具：
-- 🛡️ **[AI 浮水印與數位指紋清除器](https://ivanusto.github.io/watermarks-remover/)** — 免費清除 ChatGPT、Claude、Gemini 的隱形 Unicode 浮水印、C2PA 數位認證標記與圖片中繼資料。
+- 🛡️ **[AI 浮水印與數位指紋清除器](https://ivanusto.github.io/watermarks-remover-web/)** — 免費清除 ChatGPT、Claude、Gemini 的隱形 Unicode 浮水印、C2PA 數位認證標記與圖片中繼資料。
 - 📝 **[Markdown 轉 WordPress 格式轉換器](https://ivanusto.github.io/md-to-wordpress-converter/)** — 一鍵將 Markdown 文章轉換為 WordPress Gutenberg 原生區塊語法與乾淨 HTML。
 
 ## 📜 授權條款 (License)

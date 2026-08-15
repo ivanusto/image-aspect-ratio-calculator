@@ -45,7 +45,7 @@ python -m http.server 8080
 ## 🛠️ おすすめの無料オンラインツール (Sister Tools)
 
 プライバシー重視のブラウザ完結型Webツールシリーズ：
-- 🛡️ **[AI透かし・電子指紋除去ツール](https://ivanusto.github.io/watermarks-remover/)** — ChatGPT、Claude、Gemini の不可視Unicode透かしやC2PA認証メタデータを削除。
+- 🛡️ **[AI透かし・電子指紋除去ツール](https://ivanusto.github.io/watermarks-remover-web/)** — ChatGPT、Claude、Gemini の不可視Unicode透かしやC2PA認証メタデータを削除。
 - 📝 **[Markdown to WordPress 変換ツール](https://ivanusto.github.io/md-to-wordpress-converter/)** — Markdown記事をWordPressブロックエディタ形式・HTMLへワンクリック変換。
 
 ## 📜 ライセンス (License)
