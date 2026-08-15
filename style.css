@@ -1460,3 +1460,40 @@ body {
         touch-action: manipulation;
     }
 }
+
+/* App Footer & Sister Tools Cross-links */
+.app-footer {
+    text-align: center;
+    padding: 32px 20px 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
+}
+
+.app-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+    color: #FFF;
+}
+
+.app-footer .footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.app-footer .footer-links span {
+    color: var(--border-color);
+}
+
