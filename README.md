@@ -42,6 +42,12 @@ python -m http.server 8080
 
 Open `http://localhost:8080` in your web browser.
 
+## 🛠️ Free Sister Web Tools
+
+Check out these other free, privacy-first web tools:
+- 🛡️ **[AI Watermarks & Provenance Remover](https://ivanusto.github.io/watermarks-remover/)** — Strip multi-vendor AI provenance marks (ChatGPT, Claude, Gemini invisible Unicode, C2PA, EXIF metadata).
+- 📝 **[Markdown to WordPress Converter](https://ivanusto.github.io/md-to-wordpress-converter/)** — Transform Markdown drafts into native WordPress Gutenberg blocks and clean HTML with live preview.
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).

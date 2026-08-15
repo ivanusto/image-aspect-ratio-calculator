@@ -62,7 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'ref.3_2': 'DSLR Photo (35mm)',
             'ref.21_9': 'Ultrawide / Cinematic',
             'ref.2_3': 'Portrait Photo',
-            'footer.text': 'Aspect Ratio & Crop Pro &copy; 2026 | Developed by <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | Website <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a>',
+            'footer.link_wm': '🛡️ AI Watermarks Remover',
+            'footer.link_wp': '📝 MD to WordPress Converter',
+            'footer.link_repo': '🐙 GitHub Repo',
+            'footer.text': 'Aspect Ratio & Crop Pro &copy; 2026 | Developed by <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 100% Client-Side In-Browser • Privacy-First',
 
             // Dynamic Function Returns
             'tag.square': '<span class="tag-badge square"><i class="fa-solid fa-square"></i> Square</span>',
@@ -150,7 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'ref.3_2': '單眼相機相片',
             'ref.21_9': '超寬螢幕 / 電影',
             'ref.2_3': '直向寫真照',
-            'footer.text': '圖片與影片比例智慧計算與裁切器 &copy; 2026 | 開發者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 個人網站 <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a>',
+            'footer.link_wm': '🛡️ AI 浮水印清除器',
+            'footer.link_wp': '📝 MD 轉 WP 轉換器',
+            'footer.link_repo': '🐙 GitHub 專案',
+            'footer.text': '圖片與影片比例智慧計算與裁切器 &copy; 2026 | 開發者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 100% 瀏覽器端本地運算・隱私守護',
 
             // Dynamic Function Returns
             'tag.square': '<span class="tag-badge square"><i class="fa-solid fa-square"></i> 正方形 (Square)</span>',
@@ -238,7 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'ref.3_2': '一眼レフ写真 (35mm)',
             'ref.21_9': 'ウルトラワイド / シネマ',
             'ref.2_3': '縦型ポートレート写真',
-            'footer.text': 'アスペクト比計算＆切り抜き &copy; 2026 | 開発者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | ウェブサイト <a href="https://yblog.org" target="_blank" rel="noopener">yblog.org</a>',
+            'footer.link_wm': '🛡️ AI透かし除去ツール',
+            'footer.link_wp': '📝 MD→WordPress変換',
+            'footer.link_repo': '🐙 GitHub リポジトリ',
+            'footer.text': 'アスペクト比計算＆切り抜き &copy; 2026 | 開発者 <a href="https://github.com/ivanusto" target="_blank" rel="noopener">@ivanusto</a> | 100% ブラウザ内ローカル処理・プライバシー保護',
 
             // Dynamic Function Returns
             'tag.square': '<span class="tag-badge square"><i class="fa-solid fa-square"></i> 正方形 (Square)</span>',
