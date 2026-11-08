@@ -1,3 +1,6 @@
 .@__thumb
 .DS_Store
 Thumbs.db
+
+# Claude Code per-user permissions (may contain secrets)
+.claude/settings.local.json
